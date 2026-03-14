@@ -156,4 +156,14 @@ public class UserServiceImpl implements UserService{
 //         System.out.println(userId+" "+optionalUser);
 //         return optionalUser.get();
 //     }
+
+    public User getUserByEmail(String email) throws UnknownUserException {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+
+        if(optionalUser.isEmpty()) {
+            throw new UnknownUserException("User with email " + email + " not found.");
+        }
+
+        return optionalUser.get();
+    }
 }

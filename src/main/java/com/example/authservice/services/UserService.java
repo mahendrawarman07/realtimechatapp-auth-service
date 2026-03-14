@@ -12,4 +12,6 @@ public interface UserService {
     String login(String email, String password) throws UnknownUserException,PasswordMismatchException;
 
     User validateToken(String tokenValue) throws InvalidTokenException, ExpiredTokenException;
+
+    User getUserByEmail(String email) throws UnknownUserException;
 }

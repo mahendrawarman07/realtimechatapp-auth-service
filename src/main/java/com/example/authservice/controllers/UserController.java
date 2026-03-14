@@ -52,5 +52,17 @@ public class UserController {
         return UserDto.from(user);
     }
 
+    @GetMapping("/findByEmail")
+    public UserDto findByEmail(@RequestParam String email) throws UnknownUserException {
+        User user = userService.getUserByEmail(email);
+
+        UserDto userDto = new UserDto();
+        userDto.setId(user.getId());
+        userDto.setEmail(user.getEmail());
+        userDto.setName(user.getName());
+
+        return userDto;
+    }
+
 
 }
