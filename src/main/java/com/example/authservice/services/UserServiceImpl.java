@@ -9,6 +9,8 @@ import com.example.authservice.models.User;
 import com.example.authservice.repositories.UserRepository;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,7 @@ import java.util.*;
 public class UserServiceImpl implements UserService{
     private UserRepository userRepository;
     private BCryptPasswordEncoder bcryptPasswordEncoder;
+    private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Value("${jwt.secret}")
     private String secretKey;
@@ -102,6 +105,7 @@ public class UserServiceImpl implements UserService{
 
         String jwtToken = Jwts.builder().claims(claims).signWith(getSigningKey()).expiration(expirationDate).compact();
 
+        logger.info("User logged in: {}", email);
         return jwtToken;
     }
 
